@@ -1,0 +1,6 @@
+[ubuntu]
+172.16.51.65  ansible_ssh_user=msis   
+#172.16.51.44  ansible_ssh_user=msis   
+[ubuntu:vars]
+ansible_python_interpreter=/usr/bin/python3
+
