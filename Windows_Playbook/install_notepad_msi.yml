@@ -1,0 +1,30 @@
+---
+- name: Install Notepad++ manually from official URL
+  hosts: windows
+  vars:
+    notepadpp_url: "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.8.1/npp.8.8.1.Installer.x64.exe"
+    notepadpp_path: "C:\\Windows\\Temp\\npp_installer.exe"
+
+  tasks:
+
+    - name: Change WinRM SSH port to 5986
+      set_fact:
+        ansible_port: 5986
+
+    - name: Download Notepad++ installer to temp location
+      win_get_url:
+        url: "{{ notepadpp_url }}"
+        dest: "{{ notepadpp_path }}"
+
+    - name: Install Notepad++ silently
+      win_package:
+        path: "{{ notepadpp_path }}"
+        product_id: ''
+        arguments: '/quiet'   # silent install
+        state: present
+
+    - name: Remove installer to keep system clean
+      win_file:
+        path: "{{ notepadpp_path }}"
+        state: absent
+

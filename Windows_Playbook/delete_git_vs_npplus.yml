@@ -1,0 +1,53 @@
+---
+- name: Install academic computer science tools on Windows
+  hosts: windows
+  tasks:
+
+    - name: Change ssh port to 5986
+      set_fact:
+        ansible_port: 5986
+
+    - name: Uninstall VSCode
+      win_chocolatey:
+        name: vscode
+        state: absent
+
+    - name: Uninstall Notepad++
+      win_chocolatey:
+        name: notepadplusplus
+        state: absent
+
+    - name: Uninstall MySQL Workbench
+      win_chocolatey:
+        name: mysql.workbench
+        state: absent
+
+    - name: Remove VSCode desktop shortcut
+      win_file:
+        path: 'C:\Users\Public\Desktop\VSCode.lnk'
+        state: absent
+
+    - name: Remove Notepad++ desktop shortcut
+      win_file:
+        path: 'C:\Users\Public\Desktop\Notepad++.lnk'
+        state: absent
+
+    - name: Remove MySQL Workbench desktop shortcut
+      win_file:
+        path: 'C:\Users\Public\Desktop\MySQL Workbench.lnk'
+        state: absent
+
+    - name: Remove VSCode installation folder
+      win_file:
+        path: 'C:\Program Files\Microsoft VS Code'
+        state: absent
+
+    - name: Remove Notepad++ installation folder
+      win_file:
+        path: 'C:\Program Files\Notepad++'
+        state: absent
+
+    - name: Remove MySQL Workbench installation folder
+      win_file:
+        path: 'C:\Program Files\MySQL\MySQL Workbench 8.0 CE'
+        state: absent

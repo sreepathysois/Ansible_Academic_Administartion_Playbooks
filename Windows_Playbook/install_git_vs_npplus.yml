@@ -1,0 +1,45 @@
+---
+- name: Install academic computer science tools on Windows
+  hosts: windows
+  tasks:
+
+    - name: Change ssh port to 5986
+      set_fact:
+        ansible_port: 5986
+
+    - name: Ensure Notepad++ is installed
+      win_chocolatey:
+        name: notepadplusplus
+        state: present
+
+    - name: Ensure VS Code is installed
+      win_chocolatey:
+        name: vscode
+        state: present
+
+    - name: Create VSCode desktop shortcut (if not created automatically)
+      win_shortcut:
+        src: 'C:\Program Files\Microsoft VS Code\Code.exe'
+        dest: 'C:\Users\Public\Desktop\VSCode.lnk'
+
+    - name: Create Notepad++ desktop shortcut (if not created automatically)
+      win_shortcut:
+        src: 'C:\Program Files\Notepad++\notepad++.exe'
+        dest: 'C:\Users\Public\Desktop\Notepad++.lnk'
+
+    - name: Install MySQL Workbench via Chocolatey
+      win_chocolatey:
+        name: mysql.workbench
+        state: present
+
+    - name: Create MySQL Workbench desktop shortcut
+      win_shortcut:
+        src: 'C:\Program Files\MySQL\MySQL Workbench 8.0 CE\MySQLWorkbench.exe'
+        dest: 'C:\Users\Public\Desktop\MySQL Workbench.lnk'
+
+
+    - name: Ensure Python is installed
+      win_chocolatey:
+        name: python
+        state: present
+

@@ -1,0 +1,22 @@
+---
+- name: Install academic computer science tools on Windows
+  hosts: windows
+  tasks:
+
+    - name: Change ssh port to 5986
+      set_fact:
+        ansible_port: 5986
+
+    - name: Install VS Code
+      win_package:
+        name: "code"  # Chocolatey package name
+        state: present
+        installer_type: "chocolatey"
+      ignore_errors: true
+
+    - name: Install Notepad++
+      win_package:
+        name: "notepadplusplus"
+        state: present
+        installer_type: "chocolatey"
+      ignore_errors: true
